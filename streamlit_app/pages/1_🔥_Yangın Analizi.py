@@ -10,7 +10,7 @@ import folium
 import geemap.foliumap as geemap
 import streamlit as st
 
-from streamlit_app import utils, satellite_params, rois
+import utils, satellite_params, rois
 
 st.set_page_config(page_title="Yangın Analizi", page_icon="🔥", layout="wide")
 
