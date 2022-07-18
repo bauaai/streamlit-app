@@ -2,6 +2,6 @@ geemap==0.15.3
 streamlit==1.10.0
 leafmap==0.10.1
 geopandas==0.11.0
-earthengine-api==0.1.316
+earthengine-api==0.1.317
 click==8.1.3
 lxml==4.9.1
