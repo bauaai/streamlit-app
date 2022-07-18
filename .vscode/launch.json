@@ -7,7 +7,7 @@
             "module": "streamlit",
             "args": [
                 "run",
-                "streamlit_app.py"
+                "streamlit_app/🏠_Ana_sayfa.py"
             ],
         }
      ]
