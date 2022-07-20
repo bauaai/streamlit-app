@@ -1,3 +1,7 @@
+"""
+Modeule  that holds satellite information, TODO: change this to a json
+"""
+
 import datetime
 
 satellite = {
