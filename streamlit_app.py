@@ -43,9 +43,6 @@ with st.sidebar:
         default_index=DEFAULT_INDEX,
     )
 
-    st.sidebar.title("Hakkında")
-    st.sidebar.info("place holder")
-
 
 for app in apps:
     if app["title"] == selected:
