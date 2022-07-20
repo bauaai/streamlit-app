@@ -167,6 +167,6 @@ def app():
 
             # after this calculate the charts and add them to the right panel
             # ee.Reducer
-            empty_graph_text.write(delta_nbr.getInfo())
+            empty_graph_text.write()
 
         main_map.to_streamlit(height=600)
