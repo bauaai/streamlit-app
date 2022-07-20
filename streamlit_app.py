@@ -4,7 +4,7 @@ Streamlit App
 # pylint: disable=wrong-import-order
 
 import streamlit as st
-from apps import fire_analysis, home, timelapse
+from apps import fire_analysis, home, timelapse, about
 from streamlit_option_menu import option_menu
 from PIL import Image
 
@@ -18,6 +18,7 @@ apps = [
     {"func": home.app, "title": "Ana Sayfa", "icon": "house"},
     {"func": fire_analysis.app, "title": "Yangın Analizi", "icon": "geo-alt"},
     {"func": timelapse.app, "title": "Timelapse", "icon": "hourglass-split"},
+    {"func": about.app, "title": "Hakkında", "icon": "info"},
 ]
 
 titles = [app["title"] for app in apps]
@@ -43,14 +44,7 @@ with st.sidebar:
     )
 
     st.sidebar.title("Hakkında")
-    st.sidebar.info(
-        """
-        Sentinel-2 verilerinden yararlanarak geliştirilen bu uygulama orman yangınlarının
-        analiz edilmesi ve izlenmesi amacıyla [Osman](https://github.com/osbm),
-        [Efe](https://github.com/EFCK) ve [Bilal](https://github.com/qimenez) tarafından
-        TEMA işbirliğiyle hazırlandı..
-        """
-    )
+    st.sidebar.info("place holder")
 
 
 for app in apps:
