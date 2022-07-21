@@ -170,4 +170,20 @@ def app():
             plotly_charts = utils.get_plotly_charts(number_of_pixels)
             empty_plotly_chart.plotly_chart(plotly_charts, use_container_width=True)
 
+            dnbr_filename = "filename.jpg"
+            geemap.download_ee_image(
+                pre_mos,
+                dnbr_filename,
+                crs=CRS,
+                region=st.session_state["roi"],
+                scale=10,
+            )
+
+            empty_outputs.download_button(
+                "Download dnbr image",
+                open(dnbr_filename, "rb").read(),
+                mime="application/octet-stream",
+                file_name=dnbr_filename,
+            )
+
         main_map.to_streamlit(height=600)
