@@ -170,6 +170,8 @@ def app():
             plotly_charts = utils.get_plotly_charts(number_of_pixels)
             empty_plotly_chart.plotly_chart(plotly_charts, use_container_width=True)
 
+            """ # TODO omit for now but we will make a form unit to
+                      # request the outputs otherwise it makes the app slow
             dnbr_filename = "filename.jpg"
             geemap.download_ee_image(
                 pre_mos,
@@ -184,6 +186,6 @@ def app():
                 open(dnbr_filename, "rb").read(),
                 mime="application/octet-stream",
                 file_name=dnbr_filename,
-            )
+            )"""
 
         main_map.to_streamlit(height=600)
