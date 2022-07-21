@@ -117,11 +117,11 @@ def app():
 
             prefire = imagery.filterDate(
                 dates["prefire_start"], dates["prefire_end"]
-            ).filterBounds(st.session_state["roi"])
+            ).filterBounds(st.session_state["roi"]).filterMetadata('CLOUDY_PIXEL_PERCENTAGE', 'less_than', 12)
 
             postfire = imagery.filterDate(
                 dates["postfire_start"], dates["postfire_end"]
-            ).filterBounds(st.session_state["roi"])
+            ).filterBounds(st.session_state["roi"]).filterMetadata('CLOUDY_PIXEL_PERCENTAGE', 'less_than', 12)
 
             pre_mos = prefire.median().clip(st.session_state["roi"])
             post_mos = postfire.median().clip(st.session_state["roi"])
