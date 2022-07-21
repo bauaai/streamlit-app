@@ -18,7 +18,14 @@ cd streamlit-app
 pip install -r requirements.txt
 ```
 
+2.1. Install dependencies for development
+```bash
+pip install -r requirements-dev.txt
+```
+
 3. Run the app
 ```bash
 python -m streamlit run streamlit_app.py
 ```
+
+3.1 Or press <kbd>f5</kbd> in VSCode its integrated to run streamlit app
