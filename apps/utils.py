@@ -12,35 +12,55 @@ import zipfile
 import ee
 import folium
 import geemap.foliumap as geemap
-
+import numpy as np
+import pandas as pd
 import streamlit as st
 from lxml import etree
 import plotly.graph_objects as go
 
+delta_nbr_colors = {
+    "Veri Yok": "ffffff",
+    "Yüksek yeniden büyüme": "7a8737",
+    "Düşük yeniden büyüme": "acbe4d",
+    "Yanmamış": "0ae042",
+    "Düşük Tahribat": "fff70b",
+    "Orta-Düşük tahribat": "ffaf38",
+    "Orta-yüksek tahribat": "ff641b",
+    "Yüksek tahribat": "a41fd6",
+}
 
-def get_plotly_charts(number_of_pixel):
+
+def calculate_dnbr_dataframe(number_of_pixels):
+    """
+    The function to calculate the DNBR dataframe.
+    """
+    names = list(delta_nbr_colors.keys())
+    values = np.array(number_of_pixels)  # pixel numbers
+    hectares = values * 900 / 10000  # convert to hectares
+    percenteges = hectares / np.sum(hectares) * 100  # calculate percenteges
+
+    dataframe = pd.DataFrame(
+        {"dNBR sınıfları": names, "hektar": hectares, "yüzde": percenteges}
+    )
+    dataframe = dataframe.style.hide_index().format(precision=2)
+
+    return dataframe.to_html()
+
+
+def get_plotly_charts(number_of_pixels):
     """
     The function to generate the plotly charts.
     """
-    colors = {
-        "Veri Yok": "ffffff",
-        "Yüksek yeniden büyüme": "7a8737",
-        "Düşük yeniden büyüme": "acbe4d",
-        "Yanmamış": "0ae042",
-        "Düşük Tahribat": "fff70b",
-        "Orta-Düşük tahribat": "ffaf38",
-        "Orta-yüksek tahribat": "ff641b",
-        "Yüksek tahribat": "a41fd6",
-    }
+    colors = delta_nbr_colors
     fig = go.Figure(
         data=[
             go.Pie(
                 labels=list(colors.keys()),
-                values=list(number_of_pixel),
+                values=list(number_of_pixels),
                 sort=False,
                 marker=dict(colors=list(colors.values())),
             )
-        ]
+        ],
     )
 
     return fig

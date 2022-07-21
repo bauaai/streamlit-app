@@ -90,14 +90,18 @@ def app():
         }
 
         with st.expander("Grafikleri görüntüle"):
-            empty_graph_text = st.empty()
-            empty_graph_text.text("Grafikler yükleniyor ...")
+            empty_dataframe = st.empty()
+            empty_dataframe.info("Lütfen önce ROI ve tarih seçimini yapınız. ")
+
+            empty_plotly_chart = st.empty()
+            empty_plotly_chart.text("Grafikler yükleniyor ...")
 
             # empty_chart = st.empty()
 
         with st.expander("Çıktıları indir"):
 
-            st.write("Çıktılar zip olarak hazırlanıyor...")
+            empty_outputs = st.empty()
+            empty_outputs.info("Lütfen önce ROI ve tarih seçimini yapınız.")
 
     with col1:  # left column
         st.info(
@@ -153,21 +157,17 @@ def app():
             # add legend to the map
             main_map.add_legend(
                 title="dNBR Sınıfı",
-                legend_dict={
-                    "Veri Yok": "ffffff",
-                    "Yüksek yeniden büyüme": "7a8737",
-                    "Düşük yeniden büyüme": "acbe4d",
-                    "Yanmamış": "0ae042",
-                    "Düşük Tahribat": "fff70b",
-                    "Orta-Düşük tahribat": "ffaf38",
-                    "Orta-yüksek tahribat": "ff641b",
-                    "Yüksek tahribat": "a41fd6",
-                },
+                legend_dict=utils.delta_nbr_colors,
             )
 
             # after this calculate the charts and add them to the right panel
-            number_of_pixel = utils.get_pixel_counts(delta_nbr, st.session_state["roi"])
-            plotly_charts = utils.get_plotly_charts(number_of_pixel)
-            empty_graph_text.plotly_chart(plotly_charts, use_container_width=True)
+            number_of_pixels = utils.get_pixel_counts(
+                delta_nbr, st.session_state["roi"]
+            )
+            dnbr_dataframe = utils.calculate_dnbr_dataframe(number_of_pixels)
+            empty_dataframe.write(dnbr_dataframe, unsafe_allow_html=True)
+
+            plotly_charts = utils.get_plotly_charts(number_of_pixels)
+            empty_plotly_chart.plotly_chart(plotly_charts, use_container_width=True)
 
         main_map.to_streamlit(height=600)
