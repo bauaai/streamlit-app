@@ -4,7 +4,6 @@ Page for utilities
 
 import json
 import os
-
 import tempfile
 import uuid
 import xml.etree.ElementTree as et
@@ -16,6 +15,67 @@ import geemap.foliumap as geemap
 
 import streamlit as st
 from lxml import etree
+import plotly.graph_objects as go
+
+
+def get_plotly_charts(number_of_pixel):
+    """
+    The function to generate the plotly charts.
+    """
+    colors = {
+        "Veri Yok": "ffffff",
+        "Yüksek yeniden büyüme": "7a8737",
+        "Düşük yeniden büyüme": "acbe4d",
+        "Yanmamış": "0ae042",
+        "Düşük Tahribat": "fff70b",
+        "Orta-Düşük tahribat": "ffaf38",
+        "Orta-yüksek tahribat": "ff641b",
+        "Yüksek tahribat": "a41fd6",
+    }
+    fig = go.Figure(
+        data=[
+            go.Pie(
+                labels=list(colors.keys()),
+                values=list(number_of_pixel),
+                sort=False,
+                marker=dict(colors=list(colors.values())),
+            )
+        ]
+    )
+
+    return fig
+
+
+def get_pixel_counts(image, geometry):
+    """
+    The function to get the pixel counts of classes in an dNBR image.
+    """
+    # pylint: disable=no-member
+    thresholds = ee.Image([-1000, -251, -101, 99, 269, 439, 659, 2000])
+    classified = image.lt(thresholds).reduce("sum").toInt()
+    allpix = classified.updateMask(classified)
+    pixstats = allpix.reduceRegion(
+        reducer=ee.Reducer.count(),  # count pixels in a single class
+        geometry=geometry,
+        scale=30,
+    )
+
+    allpixels = ee.Number(pixstats.get("sum"))  # extract pixel count as a number
+    allpixels.getInfo()
+    results = []
+
+    results = []
+    for i in range(8):
+        single_mask = classified.updateMask(classified.eq(i))  # mask a single class
+        stats = single_mask.reduceRegion(
+            reducer=ee.Reducer.count(),  # count pixels in a single class
+            geometry=geometry,
+            scale=30,
+        )
+        pix = ee.Number(stats.get("sum"))
+
+        results.append(pix.getInfo())
+    return results
 
 
 def map_search(folium_map: geemap.Map) -> None:  # sourcery skip: use-named-expression
@@ -40,7 +100,7 @@ def kml_geometry_export(file_path):
     """
     The function to export the geometry of a KML file.
     """
-
+    # pylint: disable=c-extension-no-member
     root = etree.parse(file_path)
 
     for i in root.iter():

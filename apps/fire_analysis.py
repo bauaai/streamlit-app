@@ -166,7 +166,8 @@ def app():
             )
 
             # after this calculate the charts and add them to the right panel
-            # ee.Reducer
-            empty_graph_text.write()
+            number_of_pixel = utils.get_pixel_counts(delta_nbr, st.session_state["roi"])
+            plotly_charts = utils.get_plotly_charts(number_of_pixel)
+            empty_graph_text.plotly_chart(plotly_charts, use_container_width=True)
 
         main_map.to_streamlit(height=600)
