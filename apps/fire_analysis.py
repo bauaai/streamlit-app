@@ -135,6 +135,9 @@ def app():
             pre_nbr = pre_mos.normalizedDifference(["B8", "B12"])
             post_nbr = post_mos.normalizedDifference(["B8", "B12"])
 
+            pre_ndvi = pre_mos.normalizedDifference(["B8", "B4"])
+            post_ndvi = post_mos.normalizedDifference(["B8", "B4"])
+
             delta_nbr = pre_nbr.subtract(post_nbr).multiply(
                 1000
             )  # why are we mutliplying by 1000?
@@ -151,6 +154,10 @@ def app():
             main_map.add_layer(
                 post_mos, false_color_vis_params, "Yangın sonrası false color"
             )
+
+            main_map.add_layer(pre_ndvi, utils.ndvi_colors, "Yangın öncesi NDVI")
+            main_map.add_layer(post_ndvi, utils.ndvi_colors, "Yangın sonrası NDVI")
+
             delta_nbr_sld = delta_nbr.sldStyle(sld_intervals)
             main_map.add_layer(delta_nbr_sld, name="dNBR")
 
@@ -169,7 +176,9 @@ def app():
 
             total_hectare = sum(number_of_pixels) * 900 / 10000
 
-            empty_total_hectare.info(f"Toplam seçilen alan {round(total_hectare, 2)} hektardır.")
+            empty_total_hectare.info(
+                f"Toplam seçilen alan {round(total_hectare, 2)} hektardır."
+            )
 
             dnbr_dataframe = utils.calculate_dnbr_dataframe(number_of_pixels)
             empty_dataframe.write(dnbr_dataframe, unsafe_allow_html=True)
@@ -196,5 +205,5 @@ def app():
             )"""
 
         main_map.to_streamlit(height=600)
-        #$coordinates =
+        # $coordinates =
         st.info("Seçilen alanın koordinatları")

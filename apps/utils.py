@@ -29,6 +29,19 @@ delta_nbr_colors = {
     "Yüksek tahribat": "a41fd6",
 }
 
+ndvi_colors = {
+    "palette": [
+        "#d73027",
+        "#f46d43",
+        "#fdae61",
+        "#fee08b",
+        "#d9ef8b",
+        "#a6d96a",
+        "#66bd63",
+        "#1a9850",
+    ]
+}
+
 
 @st.experimental_memo
 def calculate_dnbr_dataframe(number_of_pixels):
