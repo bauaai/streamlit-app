@@ -6,7 +6,7 @@ import datetime
 
 satellite = {
     "sentinel-2": {
-        "name": "COPERNICUS/S2",
+        "name": "COPERNICUS/S2_SR_HARMONIZED",
         "launch": datetime.date(2017, 3, 8),
         "rgb_vis_params": {
             "bands": ["B4", "B3", "B2"],
