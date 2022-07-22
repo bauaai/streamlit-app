@@ -196,5 +196,5 @@ def app():
             )"""
 
         main_map.to_streamlit(height=600)
-        coordinates =
+        #$coordinates =
         st.info("Seçilen alanın koordinatları")
