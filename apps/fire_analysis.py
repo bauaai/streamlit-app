@@ -90,6 +90,8 @@ def app():
         }
 
         with st.expander("Grafikleri görüntüle"):
+            empty_total_hectare = st.empty()
+
             empty_dataframe = st.empty()
             empty_dataframe.info("Lütfen önce ROI ve tarih seçimini yapınız. ")
 
@@ -164,6 +166,11 @@ def app():
             number_of_pixels = utils.get_pixel_counts(
                 delta_nbr, st.session_state["roi"]
             )
+
+            total_hectare = sum(number_of_pixels) * 900 / 10000
+
+            empty_total_hectare.info(f"Toplam seçilen alan {round(total_hectare, 2)} hektardır.")
+
             dnbr_dataframe = utils.calculate_dnbr_dataframe(number_of_pixels)
             empty_dataframe.write(dnbr_dataframe, unsafe_allow_html=True)
 
@@ -189,3 +196,5 @@ def app():
             )"""
 
         main_map.to_streamlit(height=600)
+        coordinates =
+        st.info("Seçilen alanın koordinatları")
