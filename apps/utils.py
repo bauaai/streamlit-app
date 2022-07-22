@@ -30,6 +30,7 @@ delta_nbr_colors = {
 }
 
 
+@st.experimental_memo
 def calculate_dnbr_dataframe(number_of_pixels):
     """
     The function to calculate the DNBR dataframe.
@@ -47,6 +48,7 @@ def calculate_dnbr_dataframe(number_of_pixels):
     return dataframe.to_html()
 
 
+@st.experimental_memo
 def get_plotly_charts(number_of_pixels):
     """
     The function to generate the plotly charts.
@@ -66,6 +68,7 @@ def get_plotly_charts(number_of_pixels):
     return fig
 
 
+@st.experimental_memo
 def get_pixel_counts(image, geometry):
     """
     The function to get the pixel counts of classes in an dNBR image.
@@ -98,6 +101,7 @@ def get_pixel_counts(image, geometry):
     return results
 
 
+@st.experimental_memo
 def map_search(folium_map: geemap.Map) -> None:  # sourcery skip: use-named-expression
     """
     The function to generate the search box above the map.
@@ -116,6 +120,7 @@ def map_search(folium_map: geemap.Map) -> None:  # sourcery skip: use-named-expr
             st.session_state["zoom_level"] = 12
 
 
+@st.experimental_memo
 def kml_geometry_export(file_path):
     """
     The function to export the geometry of a KML file.
