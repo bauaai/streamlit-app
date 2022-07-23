@@ -14,18 +14,15 @@ def app():
 
     st.markdown(
         """
-Bu web aplikasyonu [streamlit](https://streamlit.io) kullanılarak orman
-tarhibatının izlenmesi ve analiz edilebilmesi için TEMA işbirliğiyle,
-[google earth engine](https://earthengine.google.com) verilerini esas
-alarak yapılmıştır. Çalışmada [leafmap](https://leafmap.org),
-[geemap](https://geemap.org) gibi açık kaynak haritalama kütüphaneleri kullanılmıştır.
-        """
+        Bu web aplikasyonu orman tarhibatının izlenmesi ve analiz edilebilmesi amacıyla TEMA işbirliğiyle,
+        uydu görüntülerinden elde edilen veriler esas alınarak hazırlanmıştır.
+    """
     )
 
     st.subheader("Örnek Çalışmalar")
     st.markdown(
         """
-        Alt taraftaki çalışmalar Yangın Analizi web sayfası kullanılarak yapıldı.
+        Alt taraftaki sonuçlar Yangın Analizi web sayfası kullanılarak elde edildi.
         Kendi Çalışmalarınızı yaratmak için sol taraftaki menüden `Yangın Analizi`
         sekmesine tıklayınız.
     """
