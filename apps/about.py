@@ -9,7 +9,9 @@ def app():
     """
     About page app function
     """
-    st.markdown("<h1 style='text-align: center; '>HAKKINDA</h1>", unsafe_allow_html=True)
+    st.markdown(
+        "<h1 style='text-align: center; '>HAKKINDA</h1>", unsafe_allow_html=True
+    )
 
     st.subheader("")
 
@@ -20,16 +22,19 @@ def app():
         [Sentinel-2](https://www.esa.int/Applications/Observing_the_Earth/Copernicus/Sentinel-2) ve [Landsat-8](https://landsat.gsfc.nasa.gov/satellites/landsat-8/)
         uydularından elde edilen veriler kullanılmıştır. Elde edilen veriler [geemap](https://geemap.org) ve [leafmap](https://leafmap.org) gibi açık kaynak
         haritalama kütüphaneleri kullanılarak işlenmiş ve [streamlit](https://streamlit.io) kullanılarak internet sitesi haline getirilmiştir.
-""")
+"""
+    )
 
     st.subheader("")
 
     st.subheader("Sorumluluk Reddi Beyanı")
-    st.markdown("""
+    st.markdown(
+        """
     Bu çalışma ve içerdiği sorgu / analiz sonuçları tahmini değerler içermektedir. Veriler / sonuçlar, herhangi bir arazi gözlemine
     dayanmadan uydu görüntüleri üzerinden görüntü işleme yazılımlarıyla otomatik – yarı otomatik olarak elde edilmiş olduğundan,
     arazi gözlemleri ile uyumsuzluk gösterebilir.
-    """)
+    """
+    )
 
     st.subheader("")
 
@@ -39,14 +44,14 @@ def app():
 
     with col1:
         st.write(
-        """[Osman Faruk BAYRAM](https://github.com/osbm)  \n[Efe Can KIRBIYIK](https://github.com/EFCK)  \nAhmet Bilal BARIŞMAN  \n Aleyna
+            """[Osman Faruk BAYRAM](https://github.com/osbm)  \n[Efe Can KIRBIYIK](https://github.com/EFCK)  \nAhmet Bilal BARIŞMAN  \n Aleyna
         KURT  \n[Beyza BAYRAK](https://github.com/beyzabayrakk)
         """
         )
 
     with col2:
         st.write(
-        """
+            """
         Alp Giray SAVRUM  \n  Edip Emre BODUR  \n Aleyna Benan AYDI  \n  Kubilay Kaan DELİKTAŞ  \n  Ecem AYDOĞAN
         """
         )
