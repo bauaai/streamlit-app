@@ -21,7 +21,7 @@ def app():
         orman tahribatının tespit ve analiz edilmesi amacıyla geliştirilmiştir. Uygulamada [Google Earth Engine](https://earthengine.google.com) kataloğunda bulunan
         [Sentinel-2](https://www.esa.int/Applications/Observing_the_Earth/Copernicus/Sentinel-2) ve [Landsat-8](https://landsat.gsfc.nasa.gov/satellites/landsat-8/)
         uydularından elde edilen veriler kullanılmıştır. Elde edilen veriler [geemap](https://geemap.org) ve [leafmap](https://leafmap.org) gibi açık kaynak
-        haritalama kütüphaneleri kullanılarak işlenmiş ve [streamlit](https://streamlit.io) kullanılarak internet sitesi haline getirilmiştir.
+        haritalama kütüphaneleri kullanılarak işlenmiş ve [streamlit](https://streamlit.io) kullanılarak web aplikasyonu haline getirilmiştir.
 """
     )
 
