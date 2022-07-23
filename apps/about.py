@@ -15,7 +15,11 @@ def app():
 
     st.markdown(
         """
-        Bağçeşehir öğrencileri tarafından tema'nın isteği doğrultusunda tema işbirliğiyle geliştirildi.
+        Katkı verenler bölümünde bulunan öğrenciler tarafından TEMA'nın işbirliğiyle geliştirilen bu uygulama, uzaktan algılama verilerine dayanarak
+        orman tahribatının tespit ve analiz edilmesi amacıyla geliştirilmiştir. Uygulamada [Google Earth Engine](https://earthengine.google.com) kataloğunda bulunan
+        [Sentinel-2](https://www.esa.int/Applications/Observing_the_Earth/Copernicus/Sentinel-2) ve [Landsat-8](https://landsat.gsfc.nasa.gov/satellites/landsat-8/)
+        uydularından elde edilen veriler kullanılmıştır. Elde edilen veriler [geemap](https://geemap.org) ve [leafmap](https://leafmap.org) gibi açık kaynak
+        haritalama kütüphaneleri kullanılarak işlenmiş ve [streamlit](https://streamlit.io) kullanılarak internet sitesi haline getirilmiştir.
 """)
 
 
@@ -34,6 +38,8 @@ def app():
     dayanmadan uydu görüntüleri üzerinden görüntü işleme yazılımlarıyla otomatik – yarı otomatik olarak elde edilmiş olduğundan,
     arazi gözlemleri ile uyumsuzluk gösterebilir.
     """)
+
+
 
     col1, col2 = st.columns([1, 1])
 
