@@ -17,7 +17,7 @@ def app():
 
     st.markdown(
         """
-        Geliştirenler bölümünde bulunan öğrenciler tarafından TEMA'nın işbirliğiyle geliştirilen bu uygulama, uzaktan algılama verilerine dayanarak
+        BAU Uygulamalı Yapay Zeka Araştırma Merkezi ve TEMA işbirliği ile geliştirilen bu uygulama, uzaktan algılama verilerine dayanarak
         orman tahribatının tespit ve analiz edilmesi amacıyla geliştirilmiştir. Uygulamada [Google Earth Engine](https://earthengine.google.com) kataloğunda bulunan
         [Sentinel-2](https://www.esa.int/Applications/Observing_the_Earth/Copernicus/Sentinel-2) ve [Landsat-8](https://landsat.gsfc.nasa.gov/satellites/landsat-8/)
         uydularından elde edilen veriler kullanılmıştır. Elde edilen veriler [geemap](https://geemap.org) ve [leafmap](https://leafmap.org) gibi açık kaynak
