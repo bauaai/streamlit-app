@@ -14,15 +14,15 @@ def app():
 
     st.markdown(
         """
-        Bu web aplikasyonu orman tarhibatının izlenmesi ve analiz edilebilmesi amacıyla TEMA işbirliğiyle,
-        uydu görüntülerinden elde edilen veriler esas alınarak hazırlanmıştır.
+        Bu web aplikasyonu orman tarhibatının izlenmesi ve analiz edilebilmesi amacıyla TEMA işbirliğinde,
+        uydu görüntülerinden elde edilen veriler esas alınarak hzırlanmıştır.
     """
     )
 
     st.subheader("Örnek Çalışmalar")
     st.markdown(
         """
-        Alt taraftaki sonuçlar Yangın Analizi web sayfası kullanılarak elde edildi.
+        Alt taraftaki çıktılar Yangın Analizi web sayfası kullanılarak elde edilmiş sonuçlardır.
         Kendi Çalışmalarınızı yaratmak için sol taraftaki menüden `Yangın Analizi`
         sekmesine tıklayınız.
     """
