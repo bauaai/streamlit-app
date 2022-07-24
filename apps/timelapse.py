@@ -8,6 +8,7 @@ import os
 
 import geemap.foliumap as geemap
 import streamlit as st
+import ee
 
 from . import rois, satellite_params, utils
 
@@ -35,7 +36,8 @@ def app():
     )
 
     st.session_state["vis_params"] = None
-    st.session_state["satellite"] = "sentinel-2"
+    st.session_state["satellite"] = None
+    timelapse_title = None
     pre_fire = date.today() - 2 * DAY_WINDOW
     post_fire = date.today() - DAY_WINDOW
 
@@ -74,21 +76,14 @@ def app():
             st.session_state["satellite"] = satellite_params.satellite["landsat-8"]
 
         selected_rgb = st.selectbox(
-            "Görüntülenme rengini seçin", ["True Color", "False Color", "dNBR"]
+            "Görüntülenme rengini seçin", ["True Color", "False Color"]
         )
 
         if selected_rgb == "True Color":
-            st.session_state["vis_params"] = satellite_params.satellite[
-                selected_satellite
-            ]["rgb_vis_params"]
+            st.session_state["vis_params"] = st.session_state["satellite"]["rgb_vis_params"]
 
         elif selected_rgb == "False Color":
-            st.session_state["vis_params"] = satellite_params.satellite[
-                selected_satellite
-            ]["false_color_vis_params"]
-
-        elif selected_rgb == "dNBR":
-            st.session_state["vis_params"] = "dNBR"
+            st.session_state["vis_params"] = st.session_state["satellite"]["false_color_vis_params"]
 
         pre_fire = st.date_input(  # to update dates according to the user selection
             "Yangın başlangıç tarihi",
@@ -111,17 +106,11 @@ def app():
             "postfire_end": str(post_fire + DAY_WINDOW),
         }
 
-        timelapse_title = ""
-        if st.session_state["satellite"] == "landsat-8":
-            timelapse_title = "Landsat-8 Timelapse"
-        elif st.session_state["satellite"] == "sentinel-2":
-            timelapse_title = "Sentinel-2 Timelapse"
-
         with st.form("submit_form"):
 
-            roi = None
             if st.session_state.get("roi") is not None:
                 roi = st.session_state.get("roi")
+
             out_gif = geemap.temp_file_path(".gif")
 
             title = st.text_input("Timelapse'in başlığı: ", timelapse_title)
@@ -158,62 +147,28 @@ def app():
                 else:
 
                     empty_text.text("Computing... Please wait...")
-                    try:
-                        if st.session_state["satellite"] == "landsat-8":
-                            out_gif = geemap.landsat_timelapse(
-                                roi=selected_roi,
-                                out_gif=out_gif,
-                                start_date=dates["prefire_start"],
-                                end_date=dates["postfire_end"],
-                                vis_params=st.session_state["vis_params"],
-                                apply_fmask=apply_fmask,
-                                frames_per_second=speed,
-                                date_format=None,
-                                title=title,
-                                title_xy=("2%", "90%"),
-                                add_text=True,
-                                text_xy=("2%", "2%"),
-                                text_sequence=None,
-                                font_type=font_type,
-                                font_size=font_size,
-                                font_color=font_color,
-                                add_progress_bar=True,
-                                progress_bar_color=progress_bar_color,
-                                progress_bar_height=5,
-                                loop=0,
-                                mp4=mp4,
-                            )
 
-                        elif st.session_state["satellite"] == "sentinel-2":
-                            out_gif = geemap.sentinel2_timelapse(
-                                roi=selected_roi,
-                                out_gif=out_gif,
-                                start_date=dates["prefire_start"],
-                                end_date=dates["postfire_end"],
-                                vis_params=st.session_state["vis_params"],
-                                apply_fmask=apply_fmask,
-                                frames_per_second=speed,
-                                date_format=None,
-                                title=title,
-                                title_xy=("2%", "90%"),
-                                add_text=True,
-                                text_xy=("2%", "2%"),
-                                text_sequence=None,
-                                font_type=font_type,
-                                font_size=font_size,
-                                font_color=font_color,
-                                add_progress_bar=True,
-                                progress_bar_color=progress_bar_color,
-                                progress_bar_height=5,
-                                loop=0,
-                                mp4=mp4,
-                            )
 
-                        geemap.sentinel2_timelapse()
+                    imagery = ee.ImageCollection(st.session_state["satellite"]["name"])
 
-                    except:
-                        empty_text.error("Bir hata meydana geldi.")
-                        st.stop()
+
+                    out_gif = geemap.create_timelapse(
+                        collection= imagery,
+                        start_date= dates["prefire_start"],
+                        end_date= dates["postfire_end"],
+                        region= st.session_state["roi"],
+                        out_gif = out_gif,
+                        frequency="day",
+                        reducer="median",
+                        bands=st.session_state["vis_params"]["bands"],
+                        vis_params= st.session_state["vis_params"])
+
+
+
+
+                    # except:
+                    #     empty_text.error("Bir hata meydana geldi.")
+                    #     st.stop()
 
                     if out_gif is not None and os.path.exists(out_gif):
 
