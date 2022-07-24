@@ -125,7 +125,7 @@ def app():
 
                 font_color = st.color_picker("Font rengi:", "#ffffff")
 
-                apply_fmask = st.checkbox("Bulut maskeleme uygulansın mı?", True)
+                apply_fmask = st.checkbox("Bulut maskeleme uygulansın mı?", False)
 
                 font_type = st.selectbox(
                     "Başlık için font tipini seçin:",
@@ -133,7 +133,7 @@ def app():
                     index=0,
                 )
 
-                mp4 = st.checkbox("MP4 olarak kaydedilsin mi?", True)
+                mp4 = st.checkbox("MP4 olarak kaydedilsin mi?", False)
 
             empty_text = st.empty()
             empty_image = st.empty()
@@ -152,19 +152,31 @@ def app():
                     imagery = ee.ImageCollection(st.session_state["satellite"]["name"])
 
 
-                    out_gif = geemap.create_timelapse(
-                        collection= imagery,
-                        start_date= dates["prefire_start"],
-                        end_date= dates["postfire_end"],
-                        region= st.session_state["roi"],
-                        out_gif = out_gif,
-                        frequency="day",
-                        reducer="median",
-                        bands=st.session_state["vis_params"]["bands"],
-                        vis_params= st.session_state["vis_params"])
-
-
-
+                    if st.session_state["satellite"] == "sentinel-2":
+                        out_gif = geemap.sentinel2_timelapse(
+                            roi=roi,
+                            out_gif=out_gif,
+                            start_year=2017,
+                            end_year=2020,
+                            bands= st.session_state["vis_params"]["bands"],
+                            apply_fmask=apply_fmask,
+                            frames_per_second=speed,
+                            date_format=None,
+                            title=title,
+                            dimensions=768,
+                            title_xy=("2%", "90%"),
+                            add_text=True,
+                            text_xy=("2%", "2%"),
+                            text_sequence=None,
+                            font_type=font_type,
+                            font_size=font_size,
+                            font_color=font_color,
+                            add_progress_bar=True,
+                            progress_bar_color=progress_bar_color,
+                            progress_bar_height=5,
+                            loop=0,
+                            mp4=mp4,
+                        )
 
                     # except:
                     #     empty_text.error("Bir hata meydana geldi.")
