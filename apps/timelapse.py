@@ -153,6 +153,7 @@ def app():
 
 
                     if st.session_state["satellite"]["name"] == "COPERNICUS/S2_SR_HARMONIZED":
+                        pass
 
 
                     # except:
