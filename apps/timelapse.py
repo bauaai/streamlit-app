@@ -80,10 +80,10 @@ def app():
         )
 
         if selected_rgb == "True Color":
-            st.session_state["vis_params"] = st.session_state["satellite"]["rgb_vis_params"]
+            st.session_state["vis_params"] = ["Red","Green","Blue"]
 
         elif selected_rgb == "False Color":
-            st.session_state["vis_params"] = st.session_state["satellite"]["false_color_vis_params"]
+            st.session_state["vis_params"] = ["NIR","Red","Green"]
 
         pre_fire = st.date_input(  # to update dates according to the user selection
             "Yangın başlangıç tarihi",
@@ -152,31 +152,8 @@ def app():
                     imagery = ee.ImageCollection(st.session_state["satellite"]["name"])
 
 
-                    if st.session_state["satellite"] == "sentinel-2":
-                        out_gif = geemap.sentinel2_timelapse(
-                            roi=roi,
-                            out_gif=out_gif,
-                            start_year=2017,
-                            end_year=2020,
-                            bands= st.session_state["vis_params"]["bands"],
-                            apply_fmask=apply_fmask,
-                            frames_per_second=speed,
-                            date_format=None,
-                            title=title,
-                            dimensions=768,
-                            title_xy=("2%", "90%"),
-                            add_text=True,
-                            text_xy=("2%", "2%"),
-                            text_sequence=None,
-                            font_type=font_type,
-                            font_size=font_size,
-                            font_color=font_color,
-                            add_progress_bar=True,
-                            progress_bar_color=progress_bar_color,
-                            progress_bar_height=5,
-                            loop=0,
-                            mp4=mp4,
-                        )
+                    if st.session_state["satellite"]["name"] == "COPERNICUS/S2_SR_HARMONIZED":
+
 
                     # except:
                     #     empty_text.error("Bir hata meydana geldi.")
@@ -197,10 +174,10 @@ def app():
                                 )
                                 st.video(out_gif.replace(".gif", ".mp4"))
 
-                    else:
-                        empty_text.error(
-                            "Something went wrong. You probably requested too much data. Try reducing the ROI or timespan."
-                        )
+                    # else:
+                    #     empty_text.error(
+                    #         "Something went wrong. You probably requested too much data. Try reducing the ROI or timespan."
+                    #     )
 
     with col1:  # left column
         st.info(
