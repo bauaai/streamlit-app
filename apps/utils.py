@@ -48,7 +48,7 @@ def calculate_dnbr_dataframe(number_of_pixels):
     """
     The function to calculate the DNBR dataframe.
     """
-    names = list(delta_nbr_colors.keys())
+    names = ['Veri Yok', 'Yüksek tahribat', 'Orta-yüksek tahribat', 'Orta-az tahribat', 'Düşük Tahribat','Yanmamış', 'Düşük yeniden büyüme', 'Yüksek yeniden büyüme']
     values = np.array(number_of_pixels)  # pixel numbers
     hectares = values * 900 / 10000  # convert to hectares
     percenteges = hectares / np.sum(hectares) * 100  # calculate percenteges
