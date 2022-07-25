@@ -42,13 +42,14 @@ ndvi_colors = {
     ]
 }
 
+NAMES = ['Veri Yok', 'Yüksek tahribat', 'Orta-yüksek tahribat', 'Orta-Düşük tahribat', 'Düşük Tahribat','Yanmamış', 'Düşük yeniden büyüme', 'Yüksek yeniden büyüme']
 
 @st.experimental_memo
 def calculate_dnbr_dataframe(number_of_pixels):
     """
     The function to calculate the DNBR dataframe.
     """
-    names = ['Veri Yok', 'Yüksek tahribat', 'Orta-yüksek tahribat', 'Orta-az tahribat', 'Düşük Tahribat','Yanmamış', 'Düşük yeniden büyüme', 'Yüksek yeniden büyüme']
+    names = NAMES
     values = np.array(number_of_pixels)  # pixel numbers
     hectares = values * 900 / 10000  # convert to hectares
     percenteges = hectares / np.sum(hectares) * 100  # calculate percenteges
@@ -70,10 +71,10 @@ def get_plotly_charts(number_of_pixels):
     fig = go.Figure(
         data=[
             go.Pie(
-                labels=['Veri Yok', 'Yüksek tahribat', 'Orta-yüksek tahribat', 'Orta-az tahribat', 'Düşük Tahribat','Yanmamış', 'Düşük yeniden büyüme', 'Yüksek yeniden büyüme'],
+                labels= NAMES,
                 values=list(number_of_pixels),
                 sort=False,
-                marker=dict(colors=list(colors.values())),
+                marker=dict(colors=["ffffff","a41fd6","ff641b","ffaf38","fff70b","0ae042","acbe4d","7a8737"]),
             )
         ],
     )
