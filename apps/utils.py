@@ -70,7 +70,7 @@ def get_plotly_charts(number_of_pixels):
     fig = go.Figure(
         data=[
             go.Pie(
-                labels=list(colors.keys()),
+                labels=['Veri Yok', 'Yüksek tahribat', 'Orta-yüksek tahribat', 'Orta-az tahribat', 'Düşük Tahribat','Yanmamış', 'Düşük yeniden büyüme', 'Yüksek yeniden büyüme'],
                 values=list(number_of_pixels),
                 sort=False,
                 marker=dict(colors=list(colors.values())),
